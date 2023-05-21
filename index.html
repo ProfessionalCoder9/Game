@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lose Weight Game</title>
+  <style>
+    body {
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    
+    #game-canvas {
+      border: 1px solid #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="game-canvas" width="800" height="600"></canvas>
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      // Game variables
+      let playerX = 100;
+      let playerY = 100;
+      let playerSpeed = 5;
 
+      let canvas = document.getElementById('game-canvas');
+      let ctx = canvas.getContext('2d');
+
+      function update() {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw player
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(playerX, playerY, 50, 50);
+
+        // Update player position
+        playerX += playerSpeed;
+
+        // Request next frame
+        requestAnimationFrame(update);
+      }
+
+      update();
+    });
+  </script>
+</body>
+</html>
