@@ -1,52 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lose Weight Game</title>
+  <title>Subway Surfers-Like Game</title>
   <style>
-    body {
-      background-color: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+    /* CSS styles for the game */
+    #game-container {
+      position: relative;
+      width: 400px;
+      height: 600px;
+      border: 1px solid #000;
       overflow: hidden;
     }
-    
-    #game-canvas {
-      border: 1px solid #fff;
+    .player {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      left: 50px;
+      bottom: 0;
     }
   </style>
 </head>
 <body>
-  <canvas id="game-canvas" width="800" height="600"></canvas>
+  <div id="game-container">
+    <div class="player"></div>
+  </div>
+
   <script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-      // Game variables
-      let playerX = 100;
-      let playerY = 100;
-      let playerSpeed = 5;
+    // JavaScript code for the game logic
+    const gameContainer = document.getElementById('game-container');
+    const player = document.querySelector('.player');
 
-      let canvas = document.getElementById('game-canvas');
-      let ctx = canvas.getContext('2d');
+    let isJumping = false;
 
-      function update() {
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Draw player
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(playerX, playerY, 50, 50);
-
-        // Update player position
-        playerX += playerSpeed;
-
-        // Request next frame
-        requestAnimationFrame(update);
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'ArrowUp' && !isJumping) {
+        jump();
       }
-
-      update();
     });
+
+    function jump() {
+      isJumping = true;
+      let position = 0;
+
+      const jumpInterval = setInterval(function() {
+        if (position === 150) {
+          clearInterval(jumpInterval);
+          isJumping = false;
+        }
+
+        position += 5;
+        player.style.bottom = position + 'px';
+      }, 10);
+    }
   </script>
 </body>
 </html>
